@@ -1,0 +1,121 @@
+[gd_scene format=3 uid="uid://5u8jv761oq4"]
+
+[ext_resource type="Script" uid="uid://ei5pmgrthtw5" path="res://scripts/levels_map.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://dxg3lvudoc178" path="res://assets/textures/mainmenuImage.png" id="2_bg"]
+[ext_resource type="Texture2D" uid="uid://cs6ngkyhogpvu" path="res://assets/textures/muelleLevel.png" id="3_5ct26"]
+[ext_resource type="Texture2D" uid="uid://c6idi257quad1" path="res://assets/generated/map_pin_frame_0_1775666320.png" id="3_pin"]
+[ext_resource type="Texture2D" uid="uid://bs456h4v4xm1l" path="res://assets/textures/manglarLevel.png" id="4_vpyg7"]
+[ext_resource type="Texture2D" uid="uid://danu43dcbr1i6" path="res://assets/textures/celebrationLevel.png" id="5_eqgw7"]
+[ext_resource type="Texture2D" uid="uid://bhb25vfauxnh7" path="res://assets/textures/muralLevel.png" id="6_ioc5g"]
+[ext_resource type="Texture2D" uid="uid://b3x2fmbd48hq6" path="res://assets/textures/bosqueLevel.png" id="7_f7m54"]
+[ext_resource type="AudioStream" uid="uid://dyyx0ackio4pl" path="res://assets/sounds/on_button_pressed_sound.wav" id="10_sound"]
+[ext_resource type="Texture2D" uid="uid://7y2s5ey45551" path="res://assets/textures/menuButton.svg" id="10_ywr77"]
+
+[node name="LevelsMap" type="Control" unique_id=1769893062]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="ButtonPressedSound" type="AudioStreamPlayer" parent="." unique_id=2103769810]
+stream = ExtResource("10_sound")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=864893461]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_bg")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="LevelButtons" type="Control" parent="." unique_id=1550860494]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Muelle" type="TextureButton" parent="LevelButtons" unique_id=2146038122]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.4153125
+anchor_top = 0.72555554
+anchor_right = 0.5846875
+anchor_bottom = 1.0
+offset_right = 6.1035156e-05
+grow_horizontal = 2
+grow_vertical = 0
+texture_normal = ExtResource("3_5ct26")
+metadata/_edit_use_anchors_ = true
+
+[node name="Manglar" type="TextureButton" parent="LevelButtons" unique_id=1026549583]
+layout_mode = 0
+anchor_left = 0.600625
+anchor_top = 0.6211111
+anchor_right = 0.759375
+anchor_bottom = 0.87666667
+offset_left = 6.1035156e-05
+texture_normal = ExtResource("4_vpyg7")
+metadata/_edit_use_anchors_ = true
+
+[node name="Celebracion" type="TextureButton" parent="LevelButtons" unique_id=920272094]
+layout_mode = 0
+anchor_left = 0.79625
+anchor_top = 0.35222223
+anchor_right = 0.955
+anchor_bottom = 0.6077778
+texture_normal = ExtResource("5_eqgw7")
+metadata/_edit_use_anchors_ = true
+
+[node name="Mural" type="TextureButton" parent="LevelButtons" unique_id=934242023]
+layout_mode = 0
+anchor_left = 0.1925
+anchor_top = 0.30666667
+anchor_right = 0.35125
+anchor_bottom = 0.56222224
+offset_bottom = -3.0517578e-05
+texture_normal = ExtResource("6_ioc5g")
+metadata/_edit_use_anchors_ = true
+
+[node name="Bosque" type="TextureButton" parent="LevelButtons" unique_id=2136200660]
+layout_mode = 0
+anchor_left = 0.51375
+anchor_top = 0.24555555
+anchor_right = 0.6725
+anchor_bottom = 0.5011111
+offset_bottom = 3.0517578e-05
+texture_normal = ExtResource("7_f7m54")
+metadata/_edit_use_anchors_ = true
+
+[node name="Marker" type="Sprite2D" parent="." unique_id=642653518]
+visible = false
+texture = ExtResource("3_pin")
+offset = Vector2(0, -16)
+
+[node name="BackButton" type="TextureButton" parent="." unique_id=2083084460]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.83375
+anchor_top = 0.112222224
+anchor_right = 0.926875
+anchor_bottom = 0.18555556
+grow_horizontal = 0
+tooltip_text = "Menu principal"
+accessibility_name = "botón menu principal"
+accessibility_description = "usalo para volver al menu principal"
+texture_normal = ExtResource("10_ywr77")
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="LevelButtons/Muelle" to="." method="_on_pier_pressed"]
+[connection signal="pressed" from="LevelButtons/Manglar" to="." method="_on_manglar_pressed"]
+[connection signal="pressed" from="LevelButtons/Celebracion" to="." method="_on_celebration_pressed"]
+[connection signal="pressed" from="LevelButtons/Mural" to="." method="_on_mural_pressed"]
+[connection signal="pressed" from="LevelButtons/Bosque" to="." method="_on_bosque_pressed"]
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

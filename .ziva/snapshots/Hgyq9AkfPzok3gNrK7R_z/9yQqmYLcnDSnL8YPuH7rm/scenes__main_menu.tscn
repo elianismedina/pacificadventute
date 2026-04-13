@@ -1,0 +1,119 @@
+[gd_scene format=3 uid="uid://cttm7sbnpyxfw"]
+
+[ext_resource type="Texture2D" uid="uid://db7o8kqhhdtsr" path="res://assets/textures/playButton.png" id="1_06t4h"]
+[ext_resource type="AudioStream" uid="uid://demlu7o2726b" path="res://assets/sounds/main_menu_sound.wav" id="2_7vrkn"]
+[ext_resource type="Texture2D" uid="uid://byejnwlu0q41v" path="res://assets/textures/gameLogo.png" id="3_70o6p"]
+[ext_resource type="Texture2D" uid="uid://dxg3lvudoc178" path="res://assets/textures/mainmenuImage.png" id="4_background"]
+[ext_resource type="Texture2D" uid="uid://utwoo4c0752s" path="res://assets/textures/settingsButton.svg" id="5_oa1go"]
+[ext_resource type="Script" uid="uid://d242se6ug2gl2" path="res://scripts/main_menu.gd" id="6_script"]
+[ext_resource type="AudioStream" uid="uid://dyyx0ackio4pl" path="res://assets/sounds/on_button_pressed_sound.wav" id="7_sound"]
+[ext_resource type="Texture2D" uid="uid://u5ga32bmaodp" path="res://assets/textures/guiasDocentes.svg" id="8_tbmy8"]
+
+[node name="MainMenu" type="Control" unique_id=1155241894]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_script")
+
+[node name="Background" type="TextureRect" parent="." unique_id=824445859]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_background")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1244652625]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=1290292464]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="Logo" type="TextureRect" parent="CenterContainer/VBoxContainer" unique_id=370554187]
+custom_minimum_size = Vector2(600, 260)
+layout_mode = 2
+texture = ExtResource("3_70o6p")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PlayButton" type="TextureButton" parent="CenterContainer/VBoxContainer" unique_id=1518646784]
+custom_minimum_size = Vector2(460, 277)
+layout_mode = 2
+size_flags_horizontal = 4
+tooltip_text = "Boton para jugar"
+accessibility_name = "Boton de jugar"
+accessibility_description = "usalo para iniciar el juego"
+texture_normal = ExtResource("1_06t4h")
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=881373134]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.925
+anchor_top = 0.8666667
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+metadata/_edit_use_anchors_ = true
+
+[node name="SettingsButton" type="TextureButton" parent="MarginContainer" unique_id=1397243393]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+tooltip_text = "Configuración del juego"
+accessibility_name = "Boton de configuracion"
+accessibility_description = "Usalo para acceder a la configuración del juego"
+texture_normal = ExtResource("5_oa1go")
+ignore_texture_size = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=471256269]
+stream = ExtResource("2_7vrkn")
+volume_db = -5.4
+autoplay = true
+
+[node name="ButtonPressedSound" type="AudioStreamPlayer" parent="." unique_id=846265614]
+stream = ExtResource("7_sound")
+
+[node name="MarginContainer2" type="MarginContainer" parent="." unique_id=313640404]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.3871875
+anchor_top = 0.8333333
+anchor_right = 0.6128125
+anchor_bottom = 1.0
+offset_left = 160.5
+offset_top = 110.0
+offset_right = -160.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 20
+metadata/_edit_use_anchors_ = true
+
+[node name="GuiaCuidadoresButton" type="TextureButton" parent="MarginContainer2" unique_id=832077738]
+custom_minimum_size = Vector2(301, 100)
+layout_mode = 2
+tooltip_text = "Guias para docentes y cuidadores"
+accessibility_name = "Boton  Guia Cuidadores"
+accessibility_description = "Usalo para ir a las guias para docentes y cuidadores"
+texture_normal = ExtResource("8_tbmy8")
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="MarginContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="MarginContainer2/GuiaCuidadoresButton" to="." method="_on_guia_cuidadores_button_pressed"]
