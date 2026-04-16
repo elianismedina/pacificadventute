@@ -48,7 +48,7 @@
 [ext_resource type="Texture2D" uid="uid://bpr2rr1bjfk6q" path="res://games/mural_level/Sprites/shape 2-0.png" id="46_53bls"]
 [ext_resource type="Texture2D" uid="uid://c3wj5b71lp0v1" path="res://games/mural_level/Sprites/shape 2-2.png" id="47_lwnsi"]
 [ext_resource type="Texture2D" uid="uid://32tce14hikqw" path="res://games/mural_level/Sprites/shape 2-1.png" id="48_41lik"]
-[ext_resource type="Script" path="res://Scripts/BackButton.gd" id="49_tf5yo"]
+[ext_resource type="Script" uid="uid://cmosj3xp68f8r" path="res://scripts/BackButton.gd" id="49_tf5yo"]
 
 [node name="MainScene" type="Node2D" node_paths=PackedStringArray("brush", "brush_head", "things_node", "palette_node")]
 script = ExtResource("1_f6a44")

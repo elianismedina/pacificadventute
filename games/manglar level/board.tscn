@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bk6b0682r8k3s" path="res://games/manglar level/board.gd" id="1_bw3vb"]
 [ext_resource type="PackedScene" uid="uid://cag611u4f3jnp" path="res://games/manglar level/Tile.tscn" id="2_tx6nw"]
-[ext_resource type="Script" uid="uid://cmosj3xp68f8r" path="res://games/manglar level/BackButton.gd" id="3_back_button"]
+[ext_resource type="Script" uid="uid://cmosj3xp68f8r" path="res://scripts/BackButton.gd" id="3_back_button"]
 
 [node name="Board" type="Control" unique_id=1726322405]
 layout_mode = 3

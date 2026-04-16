@@ -9,7 +9,6 @@ extends Node2D
 @export var brush_head: Sprite2D
 @export var things_node: Node2D
 @export var palette_node: Node2D
-@export var back_btn: Button
 
 # --- State Variables ---
 var active_colors: Dictionary = {}
@@ -51,8 +50,6 @@ func _ready() -> void:
 					"scale": obj.scale
 				}
 	
-	if back_btn:
-		back_btn.pressed.connect(_on_back_btn_pressed)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
@@ -166,7 +163,3 @@ func _update_brush_visuals() -> void:
 	if brush_head:
 		brush_head.visible = true
 		brush_head.self_modulate = current_color
-
-func _on_back_btn_pressed() -> void:
-	# CRITICAL: Update this path to match your Collection Main Menu
-	get_tree().change_scene_to_file("res://main.tscn")
