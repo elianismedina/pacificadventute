@@ -11,14 +11,22 @@ config_version=5
 [application]
 
 config/name="Pacific Kids"
-run/main_scene="uid://bowhe6ynlohu8"
+run/main_scene="uid://cttm7sbnpyxfw"
 config/features=PackedStringArray("4.6", "GL Compatibility")
+
+[autoload]
+
+GameLoader="*uid://dtmhv16j66kho"
 
 [display]
 
 window/size/viewport_width=1600
 window/size/viewport_height=900
 window/stretch/mode="canvas_items"
+
+[dotnet]
+
+project/assembly_name="Pacific Kids"
 
 [editor]
 

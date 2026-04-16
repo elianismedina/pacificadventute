@@ -68,14 +68,10 @@ func _on_manglar_pressed() -> void:
 	level_selected.emit("mangrove")
 	$ButtonPressedSound.play()
 	await $ButtonPressedSound.finished
-	get_tree().change_scene_to_file("res://games/manglar level/board.tscn")
+	get_tree().change_scene_to_file("res://scenes/board.tscn")
 
 func _on_mural_pressed() -> void:
-	print("Level selected: mural")
-	level_selected.emit("mural")
-	$ButtonPressedSound.play()
-	await $ButtonPressedSound.finished
-	get_tree().change_scene_to_file("res://games/mural_level/murallevel.tscn")
+	_on_level_button_pressed("mural")
 
 func _on_bosque_pressed() -> void:
 	_on_level_button_pressed("forest")

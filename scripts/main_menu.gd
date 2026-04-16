@@ -11,17 +11,17 @@ func _ready() -> void:
 func _on_play_button_pressed() -> void:
 	_play_button_sound_and_stop_music()
 	await button_pressed_sound.finished
-	get_tree().change_scene_to_file("res://scenes/levels_map.tscn")
+	GameLoader.load_scene("res://scenes/levels_map.tscn")
 
 func _on_settings_button_pressed() -> void:
 	_play_button_sound_and_stop_music()
 	await button_pressed_sound.finished
-	get_tree().change_scene_to_file("res://scenes/settings.tscn")
+	GameLoader.load_scene("res://scenes/settings.tscn")
 
 func _on_guia_cuidadores_button_pressed() -> void:
 	_play_button_sound_and_stop_music()
 	await button_pressed_sound.finished
-	get_tree().change_scene_to_file("res://scenes/guia_cuidadores.tscn")
+	GameLoader.load_scene("res://scenes/guia_cuidadores.tscn")
 
 func _play_button_sound_and_stop_music() -> void:
 	if audio_stream_player.playing:

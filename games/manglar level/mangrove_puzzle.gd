@@ -6,7 +6,7 @@ extends Control
 @export var spacing: float = 2.0
 @export var puzzle_texture: Texture2D = preload("res://assets/textures/cangrejoPuzzle.png")
 
-const TILE_SCENE = preload("res://scenes/Manglar.tscn")
+const TILE_SCENE = preload("res://games/manglar level/Tile.tscn")
 
 var tiles: Array = []
 var empty_tile_pos: Vector2i = Vector2i(3, 3) # Grid coordinates

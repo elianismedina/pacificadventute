@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://bowhe6ynlohu8"]
+
+[ext_resource type="Script" uid="uid://bk6b0682r8k3s" path="res://games/manglar level/board.gd" id="1_bw3vb"]
+[ext_resource type="PackedScene" uid="uid://cag611u4f3jnp" path="res://games/manglar level/Tile.tscn" id="2_tx6nw"]
+[ext_resource type="Script" uid="uid://cmosj3xp68f8r" path="res://games/manglar level/BackButton.gd" id="3_back_button"]
+
+[node name="Board" type="Control" unique_id=1726322405]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bw3vb")
+tile_scene = ExtResource("2_tx6nw")
+
+[node name="UI_Layer" type="CanvasLayer" parent="." unique_id=406454912]
+
+[node name="BackButton" type="Button" parent="UI_Layer" unique_id=835255559]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 180.0
+offset_bottom = 60.0
+text = "- Back to Menu"
+script = ExtResource("3_back_button")
+
+[connection signal="pressed" from="UI_Layer/BackButton" to="UI_Layer/BackButton" method="_on_pressed"]

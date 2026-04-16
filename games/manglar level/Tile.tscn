@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cag611u4f3jnp"]
 
-[ext_resource type="Script" uid="uid://bh4l50rbnbr20" path="res://scripts/manglarscript.gd" id="1_vhibn"]
+[ext_resource type="Script" uid="uid://bh4l50rbnbr20" path="res://games/manglar level/manglarscript.gd" id="1_vhibn"]
 [ext_resource type="Texture2D" uid="uid://uaso45ixj7ln" path="res://assets/textures/cangrejoPuzzle.png" id="2_r3gf4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6jdkq"]
