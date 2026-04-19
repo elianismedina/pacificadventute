@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://danu43dcbr1i6" path="res://assets/textures/celebrationLevel.png" id="5_eqgw7"]
 [ext_resource type="Texture2D" uid="uid://bhb25vfauxnh7" path="res://assets/textures/muralLevel.png" id="6_ioc5g"]
 [ext_resource type="Texture2D" uid="uid://b3x2fmbd48hq6" path="res://assets/textures/bosqueLevel.png" id="7_f7m54"]
-[ext_resource type="AudioStream" uid="uid://dyyx0ackio4pl" path="res://assets/sounds/on_button_pressed_sound.wav" id="10_sound"]
+[ext_resource type="PackedScene" uid="uid://dbtnsfxcmpnt1" path="res://scenes/components/ButtonPressedSound.tscn" id="11_sfx"]
 [ext_resource type="Texture2D" uid="uid://7y2s5ey45551" path="res://assets/textures/menuButton.svg" id="10_ywr77"]
 
 [node name="LevelsMap" type="Control" unique_id=1769893062]
@@ -20,8 +20,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_script")
 
-[node name="ButtonPressedSound" type="AudioStreamPlayer" parent="." unique_id=2103769810]
-stream = ExtResource("10_sound")
+[node name="ButtonPressedSound" parent="." instance=ExtResource("11_sfx") unique_id=2103769810]
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=864893461]
 layout_mode = 1

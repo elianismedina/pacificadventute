@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://dbtnsfxcmpnt1"]
+
+[ext_resource type="Script" uid="uid://dbtnsfxscrpt1" path="res://scripts/ButtonPressedSound.gd" id="1_script"]
+[ext_resource type="AudioStream" uid="uid://dyyx0ackio4pl" path="res://assets/sounds/on_button_pressed_sound.wav" id="2_sound"]
+
+[node name="ButtonPressedSound" type="AudioStreamPlayer"]
+stream = ExtResource("2_sound")
+volume_db = -5.778
+bus = &"Sounds"
+script = ExtResource("1_script")

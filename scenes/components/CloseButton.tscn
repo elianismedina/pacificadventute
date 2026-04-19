@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/CloseButton.gd" id="1_script"]
+[ext_resource type="CompressedTexture2D" uid="uid://cmdxyt3dfqfqj" path="res://assets/textures/CloseButton.png" id="2_texture"]
+[ext_resource type="PackedScene" uid="uid://dbtnsfxcmpnt1" path="res://scenes/components/ButtonPressedSound.tscn" id="3_sound"]
+
+[node name="CloseButton" type="TextureButton"]
+texture_filter = 1
+script = ExtResource("1_script")
+texture_normal = ExtResource("2_texture")
+
+[node name="ButtonPressedSound" parent="." instance=ExtResource("3_sound")]
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

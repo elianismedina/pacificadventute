@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dxg3lvudoc178" path="res://assets/textures/mainmenuImage.png" id="4_background"]
 [ext_resource type="Texture2D" uid="uid://utwoo4c0752s" path="res://assets/textures/settingsButton.svg" id="5_oa1go"]
 [ext_resource type="Script" uid="uid://d242se6ug2gl2" path="res://scripts/main_menu.gd" id="6_script"]
-[ext_resource type="AudioStream" uid="uid://dyyx0ackio4pl" path="res://assets/sounds/on_button_pressed_sound.wav" id="7_sound"]
+[ext_resource type="PackedScene" uid="uid://dbtnsfxcmpnt1" path="res://scenes/components/ButtonPressedSound.tscn" id="9_sfx"]
 [ext_resource type="Texture2D" uid="uid://u5ga32bmaodp" path="res://assets/textures/guiasDocentes.svg" id="8_tbmy8"]
 
 [node name="MainMenu" type="Control" unique_id=1155241894]
@@ -80,14 +80,13 @@ accessibility_description = "Usalo para acceder a la configuración del juego"
 texture_normal = ExtResource("5_oa1go")
 ignore_texture_size = true
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1431210304]
 stream = ExtResource("2_7vrkn")
 volume_db = -5.4
+bus = &"Music"
 autoplay = true
-bus = &"Master"
 
-[node name="ButtonPressedSound" type="AudioStreamPlayer" parent="." unique_id=846265614]
-stream = ExtResource("7_sound")
+[node name="ButtonPressedSound" parent="." instance=ExtResource("9_sfx") unique_id=846265614]
 
 [node name="MarginContainer2" type="MarginContainer" parent="." unique_id=313640404]
 layout_mode = 1
