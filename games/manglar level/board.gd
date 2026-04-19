@@ -1,6 +1,6 @@
 extends Control
 
-@export var board_size: int = 4
+@export var board_size: int = 3
 @export var tile_size: int = 80
 @export var tile_scene: PackedScene
 @export var slide_duration: float = 0.15
@@ -14,6 +14,8 @@ var tiles_animating = 0
 var move_count = 0
 var number_visible = true
 var background_texture = null
+var _settings_panel = null
+var _victory_overlay = null
 
 enum GAME_STATES {
 	NOT_STARTED,
@@ -114,6 +116,10 @@ func _ready() -> void:
 	print_board()
 	game_state = GAME_STATES.STARTED
 	game_started.emit()
+	_create_settings_ui()
+	_create_victory_overlay()
+	game_won.connect(_show_victory_overlay)
+	game_started.connect(_hide_victory_overlay)
 
 func _on_Tile_pressed(number: int):
 	if is_animating:
@@ -135,6 +141,7 @@ func _on_Tile_pressed(number: int):
 	if (tile_pos.x != empty_pos.x and tile_pos.y != empty_pos.y):
 		return
 
+	$TileMoveSound.play()
 	var dir = (empty_pos - tile_pos).normalized()
 	var move_steps = int(round(tile_pos.distance_to(empty_pos)))
 	
@@ -280,8 +287,14 @@ func set_tile_numbers(state):
 
 func update_size(new_size):
 	board_size = int(new_size)
-	tile_size = floor(get_size().x / board_size)
-	if tile_size <= 0: tile_size = 80
+	var viewport_size: Vector2 = get_viewport_rect().size
+	var max_board_dim: float = minf(viewport_size.x, viewport_size.y) * 0.9
+	tile_size = int(max_board_dim / board_size)
+	if tile_size <= 0:
+		tile_size = 180
+	custom_minimum_size = Vector2(tile_size * board_size, tile_size * board_size)
+	size = custom_minimum_size
+	set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	for tile in tiles:
 		tile.queue_free()
 	tiles = []
@@ -294,3 +307,109 @@ func update_background_texture(texture):
 	for tile in tiles:
 		tile.set_sprite_texture(texture)
 		tile.update_size(board_size, tile_size)
+
+func _create_settings_ui() -> void:
+	var ui_layer = $UI_Layer
+	var vp_size = get_viewport_rect().size
+
+	var settings_btn = Button.new()
+	settings_btn.text = "Tamaño del tablero"
+	settings_btn.position = Vector2(vp_size.x - 180.0, 20.0)
+	settings_btn.size = Vector2(160.0, 40.0)
+	settings_btn.pressed.connect(_on_settings_pressed)
+	ui_layer.add_child(settings_btn)
+
+	_settings_panel = PanelContainer.new()
+	_settings_panel.position = Vector2(vp_size.x - 180.0, 70.0)
+	_settings_panel.visible = false
+	ui_layer.add_child(_settings_panel)
+
+	var vbox = VBoxContainer.new()
+	vbox.custom_minimum_size = Vector2(160.0, 0.0)
+	vbox.add_theme_constant_override("separation", 8)
+	_settings_panel.add_child(vbox)
+
+	var label = Label.new()
+	label.text = "Tamaño del tablero"
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	vbox.add_child(label)
+
+	for size_val in [3, 4, 5]:
+		var btn = Button.new()
+		btn.text = "%d x %d" % [size_val, size_val]
+		btn.disabled = (size_val == board_size)
+		btn.pressed.connect(_on_size_selected.bind(size_val))
+		vbox.add_child(btn)
+
+func _on_settings_pressed() -> void:
+	if _settings_panel:
+		_settings_panel.visible = not _settings_panel.visible
+
+func _on_size_selected(new_size: int) -> void:
+	if _settings_panel:
+		_settings_panel.visible = false
+	if new_size == board_size:
+		return
+	update_size(new_size)
+	scramble_board()
+	game_state = GAME_STATES.STARTED
+	game_started.emit()
+	_update_size_buttons()
+
+func _update_size_buttons() -> void:
+	if _settings_panel == null:
+		return
+	var vbox = _settings_panel.get_child(0)
+	var sizes = [3, 4, 5]
+	for i in range(sizes.size()):
+		var btn = vbox.get_child(i + 1)
+		if btn is Button:
+			btn.disabled = (sizes[i] == board_size)
+
+func _create_victory_overlay() -> void:
+	var ui_layer = $UI_Layer
+	var vp_size = get_viewport_rect().size
+
+	_victory_overlay = ColorRect.new()
+	_victory_overlay.color = Color(0.0, 0.0, 0.0, 0.65)
+	_victory_overlay.position = Vector2.ZERO
+	_victory_overlay.size = vp_size
+	_victory_overlay.visible = false
+	ui_layer.add_child(_victory_overlay)
+
+	var center = CenterContainer.new()
+	center.position = Vector2.ZERO
+	center.size = vp_size
+	_victory_overlay.add_child(center)
+
+	var vbox = VBoxContainer.new()
+	vbox.alignment = BoxContainer.ALIGNMENT_CENTER
+	vbox.add_theme_constant_override("separation", 32)
+	center.add_child(vbox)
+
+	var title = Label.new()
+	title.text = "¡Lo lograste!"
+	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	title.add_theme_font_size_override("font_size", 80)
+	title.modulate = Color(1.0, 0.88, 0.1)
+	vbox.add_child(title)
+
+	var play_again_btn = Button.new()
+	play_again_btn.text = "Jugar de nuevo"
+	play_again_btn.custom_minimum_size = Vector2(260, 64)
+	play_again_btn.add_theme_font_size_override("font_size", 28)
+	play_again_btn.pressed.connect(_on_play_again_pressed)
+	vbox.add_child(play_again_btn)
+
+func _show_victory_overlay() -> void:
+	if _victory_overlay:
+		_victory_overlay.visible = true
+
+func _hide_victory_overlay() -> void:
+	if _victory_overlay:
+		_victory_overlay.visible = false
+
+func _on_play_again_pressed() -> void:
+	scramble_board()
+	game_state = GAME_STATES.STARTED
+	game_started.emit()

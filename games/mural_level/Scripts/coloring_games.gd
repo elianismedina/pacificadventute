@@ -72,6 +72,7 @@ func _setup_ui() -> void:
 	title_display.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	title_display.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	title_display.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+	title_display.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	ui_layer.add_child(title_display)
 	_update_title()
 

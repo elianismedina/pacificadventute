@@ -2,7 +2,9 @@
 
 [ext_resource type="Script" uid="uid://bk6b0682r8k3s" path="res://games/manglar level/board.gd" id="1_bw3vb"]
 [ext_resource type="PackedScene" uid="uid://cag611u4f3jnp" path="res://games/manglar level/Tile.tscn" id="2_tx6nw"]
-[ext_resource type="Script" uid="uid://cmosj3xp68f8r" path="res://scripts/BackButton.gd" id="3_back_button"]
+[ext_resource type="PackedScene" path="res://scenes/components/CloseButton.tscn" id="3_close"]
+[ext_resource type="Texture2D" path="res://assets/textures/ManglarBackground.png" id="4_bg"]
+[ext_resource type="AudioStream" path="res://assets/sounds/tileMoveSound.mp3" id="5_sfx"]
 
 [node name="Board" type="Control" unique_id=1726322405]
 layout_mode = 3
@@ -16,14 +18,27 @@ grow_vertical = 2
 script = ExtResource("1_bw3vb")
 tile_scene = ExtResource("2_tx6nw")
 
+[node name="Background_Layer" type="CanvasLayer" parent="." unique_id=112233445]
+layer = -1
+
+[node name="Background" type="TextureRect" parent="Background_Layer" unique_id=556677889]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_bg")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="TileMoveSound" type="AudioStreamPlayer" parent="." unique_id=998877661]
+stream = ExtResource("5_sfx")
+
 [node name="UI_Layer" type="CanvasLayer" parent="." unique_id=406454912]
 
-[node name="BackButton" type="Button" parent="UI_Layer" unique_id=835255559]
+[node name="CloseButton" parent="UI_Layer" unique_id=835255559 instance=ExtResource("3_close")]
 offset_left = 20.0
 offset_top = 20.0
-offset_right = 180.0
-offset_bottom = 60.0
-text = "- Back to Menu"
-script = ExtResource("3_back_button")
-
-[connection signal="pressed" from="UI_Layer/BackButton" to="UI_Layer/BackButton" method="_on_pressed"]
+offset_right = 120.0
+offset_bottom = 120.0

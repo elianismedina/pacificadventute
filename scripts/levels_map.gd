@@ -70,7 +70,9 @@ func _on_mural_pressed() -> void:
 	get_tree().change_scene_to_file("res://games/mural_level/murallevel.tscn")
 
 func _on_bosque_pressed() -> void:
-	_on_level_button_pressed("forest")
+	level_selected.emit("bosque")
+	await button_pressed_sound.play_and_await()
+	get_tree().change_scene_to_file("res://games/bosque_level/bosquelevel.tscn")
 
 func _on_celebration_pressed() -> void:
 	_on_level_button_pressed("celebration")

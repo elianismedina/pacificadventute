@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://7ddi87s1bjsf"]
+
+[ext_resource type="Script" path="res://games/bosque_level/bosque_level.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/components/CloseButton.tscn" id="2_close"]
+
+[node name="BosqueLevel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.07, 0.22, 0.07, 1)
+
+[node name="UI_Layer" type="CanvasLayer" parent="."]
+
+[node name="CloseButton" parent="UI_Layer" instance=ExtResource("2_close")]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 120.0
+offset_bottom = 120.0
+
+[node name="AudioPlayers" type="Node" parent="."]
+
+[node name="Note1" type="AudioStreamPlayer" parent="AudioPlayers"]
+bus = &"Sounds"
+
+[node name="Note2" type="AudioStreamPlayer" parent="AudioPlayers"]
+bus = &"Sounds"
+
+[node name="Note3" type="AudioStreamPlayer" parent="AudioPlayers"]
+bus = &"Sounds"
+
+[node name="Note4" type="AudioStreamPlayer" parent="AudioPlayers"]
+bus = &"Sounds"
+
+[node name="Note5" type="AudioStreamPlayer" parent="AudioPlayers"]
+bus = &"Sounds"
+
+[node name="Note6" type="AudioStreamPlayer" parent="AudioPlayers"]
+bus = &"Sounds"
+
+[node name="Note7" type="AudioStreamPlayer" parent="AudioPlayers"]
+bus = &"Sounds"
+
+[node name="Note8" type="AudioStreamPlayer" parent="AudioPlayers"]
+bus = &"Sounds"
