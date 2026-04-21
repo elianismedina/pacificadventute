@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cag611u4f3jnp"]
 
-[ext_resource type="Script" uid="uid://bh4l50rbnbr20" path="res://games/manglar level/Scripts/manglarscript.gd" id="1_vhibn"]
+[ext_resource type="Script" path="res://games/manglar level/Scripts/puzzle_tile.gd" id="1_vhibn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6jdkq"]
 draw_center = false

@@ -53,7 +53,7 @@ func gen_board():
 					tile.set_sprite_texture(background_texture)
 				tile.set_sprite(value-1, board_size, tile_size)
 				tile.set_number_visible(number_visible)
-				tile.tile_pressed.connect(_on_Tile_pressed)
+				tile.tile_pressed.connect(_on_tile_pressed)
 				tile.slide_completed.connect(_on_Tile_slide_completed)
 				add_child(tile)
 				tiles.append(tile)
@@ -72,13 +72,6 @@ func is_board_solved():
 			count += 1
 	return true
 
-func print_board():
-	print('------board------')
-	for r in range(board_size):
-		var row = ''
-		for c in range(board_size):
-			row += str(board[r][c]).pad_zeros(2) + ' '
-		print(row)
 
 func value_to_grid(value):
 	for r in range(board_size):
@@ -99,36 +92,38 @@ func _ready() -> void:
 		board_size = puzzle_data_list[0].board_size
 		background_texture = puzzle_data_list[0].image
 	randomize()
+	
+	_setup_board_rect()
+	
+	gen_board()
+	scramble_board()
+	
+	game_state = GAME_STATES.STARTED
+	game_started.emit()
+	
+	_create_ui()
+	
+	game_won.connect(_show_victory_overlay)
+	game_started.connect(_hide_victory_overlay)
+
+func _setup_board_rect() -> void:
 	var viewport_size: Vector2 = get_viewport_rect().size
-	# To fit in a 1600x900 screen, we use the smaller dimension (900)
-	# and leave a small margin (90% of screen height)
 	var max_board_dim: float = minf(viewport_size.x, viewport_size.y) * 0.9
 	tile_size = int(max_board_dim / board_size)
 	
 	if tile_size <= 0:
-		tile_size = 180 # Fallback for 900px height with 4x4 board
+		tile_size = 180
 		
-	# Update the board size to fit the tiles exactly
-	# Center alignment is now handled by anchors in board.tscn
 	custom_minimum_size = Vector2(tile_size * board_size, tile_size * board_size)
 	size = custom_minimum_size
-	
-	# This ensures the board stays centered even if we change its size in code
 	set_anchors_and_offsets_preset(Control.PRESET_CENTER)
-	
-	gen_board()
-	scramble_board()
-	print("Board scrambled on start")
-	print_board()
-	game_state = GAME_STATES.STARTED
-	game_started.emit()
+
+func _create_ui() -> void:
 	_create_settings_ui()
 	_create_animal_selector()
 	_create_victory_overlay()
-	game_won.connect(_show_victory_overlay)
-	game_started.connect(_hide_victory_overlay)
 
-func _on_Tile_pressed(number: int):
+func _on_tile_pressed(number: int):
 	if is_animating:
 		return
 
@@ -177,12 +172,15 @@ func _on_Tile_pressed(number: int):
 		game_state = GAME_STATES.WON
 		game_won.emit()
 
-func is_board_solvable(flat):
+func is_board_solvable(flat: Array) -> bool:
+	# Sliding puzzle solvability is based on the parity of inversions and blank position
+	# See: https://www.geeksforgeeks.org/check-instance-15-puzzle-solvable/
 	var parity = 0
 	var grid_width = board_size
 	var row = 0
 	var blank_row = 0
-	for i in range(board_size*board_size):
+	
+	for i in range(board_size * board_size):
 		if i % grid_width == 0:
 			row += 1
 
@@ -190,13 +188,17 @@ func is_board_solvable(flat):
 			blank_row = row
 			continue
 
-		for j in range(i+1, board_size*board_size):
+		for j in range(i + 1, board_size * board_size):
 			if flat[i] > flat[j] and flat[j] != 0:
 				parity += 1
 
 	if grid_width % 2 != 0:
+		# If width is odd, solvable if inversions (parity) is even
 		return parity % 2 == 0
 	else:
+		# If width is even, solvable if:
+		# - blank is on even row from bottom and inversions is odd
+		# - blank is on odd row from bottom and inversions is even
 		var row_from_bottom = grid_width - blank_row + 1
 		if row_from_bottom % 2 == 0:
 			return parity % 2 != 0
@@ -204,7 +206,6 @@ func is_board_solvable(flat):
 			return parity % 2 == 0
 
 func scramble_board():
-	print("Scrambling board...")
 	var temp_flat_board = []
 	for i in range(1, board_size * board_size):
 		temp_flat_board.append(i)
@@ -217,8 +218,6 @@ func scramble_board():
 			break
 		attempts += 1
 	
-	print("Scrambled layout: ", temp_flat_board)
-
 	for r in range(board_size):
 		for c in range(board_size):
 			var val = temp_flat_board[r * board_size + c]
@@ -228,7 +227,6 @@ func scramble_board():
 	
 	empty = value_to_grid(0)
 	reset_move_count()
-	print("Board scrambled. Empty at: ", empty)
 
 func is_board_solved_flat(flat):
 	for i in range(flat.size() - 1):
@@ -275,7 +273,7 @@ func _process(_delta):
 		var nc = int(empty_p.x + dir.x)
 		
 		if nr >= 0 and nr < board_size and nc >= 0 and nc < board_size:
-			_on_Tile_pressed(board[nr][nc])
+			_on_tile_pressed(board[nr][nc])
 
 func _on_Tile_slide_completed(_number):
 	tiles_animating -= 1

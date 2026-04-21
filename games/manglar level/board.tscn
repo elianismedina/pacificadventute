@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bk6b0682r8k3s" path="res://games/manglar level/Scripts/board.gd" id="1_bw3vb"]
 [ext_resource type="Script" uid="uid://cu6kocb82yunk" path="res://games/manglar level/Scripts/puzzle_data.gd" id="2_frs2n"]
-[ext_resource type="PackedScene" uid="uid://cag611u4f3jnp" path="res://games/manglar level/Sprites/Tile.tscn" id="2_tx6nw"]
+[ext_resource type="PackedScene" path="res://games/manglar level/puzzle_tile.tscn" id="2_tx6nw"]
 [ext_resource type="PackedScene" path="res://scenes/components/CloseButton.tscn" id="3_close"]
 [ext_resource type="Texture2D" uid="uid://7rdonxs2qoij" path="res://assets/textures/ManglarBackground.png" id="4_bg"]
 [ext_resource type="AudioStream" uid="uid://3v83hopok0er" path="res://assets/sounds/tileMoveSound.mp3" id="5_sfx"]
