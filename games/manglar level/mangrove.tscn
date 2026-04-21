@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://games/manglar level/mangrove_puzzle.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://ctkuupp1ndpe5" path="res://games/manglar level/Scripts/mangrove_puzzle.gd" id="1_script"]
 
 [node name="LevelPlaceholder" type="Control"]
 layout_mode = 3

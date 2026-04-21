@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="PuzzleData" format=3 uid="uid://vibgpln7kuud"]
+
+[ext_resource type="Script" uid="uid://cu6kocb82yunk" path="res://games/manglar level/Scripts/puzzle_data.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://uaso45ixj7ln" path="res://assets/textures/cangrejoPuzzle.png" id="2_tex"]
+
+[resource]
+script = ExtResource("1_script")
+image = ExtResource("2_tex")
+board_size = 2
+level_title = "Cangrejo"

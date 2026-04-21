@@ -1,6 +1,7 @@
 extends Control
 
-@export var board_size: int = 3
+@export var puzzle_data_list: Array[PuzzleData]
+@export var board_size: int = 2
 @export var tile_size: int = 80
 @export var tile_scene: PackedScene
 @export var slide_duration: float = 0.15
@@ -16,6 +17,8 @@ var number_visible = true
 var background_texture = null
 var _settings_panel = null
 var _victory_overlay = null
+var _next_puzzle_btn = null
+var current_puzzle_index: int = 0
 
 enum GAME_STATES {
 	NOT_STARTED,
@@ -92,6 +95,9 @@ func get_tile_by_value(value):
 
 # testing
 func _ready() -> void:
+	if puzzle_data_list.size() > 0:
+		board_size = puzzle_data_list[0].board_size
+		background_texture = puzzle_data_list[0].image
 	randomize()
 	var viewport_size: Vector2 = get_viewport_rect().size
 	# To fit in a 1600x900 screen, we use the smaller dimension (900)
@@ -117,6 +123,7 @@ func _ready() -> void:
 	game_state = GAME_STATES.STARTED
 	game_started.emit()
 	_create_settings_ui()
+	_create_animal_selector()
 	_create_victory_overlay()
 	game_won.connect(_show_victory_overlay)
 	game_started.connect(_hide_victory_overlay)
@@ -334,7 +341,7 @@ func _create_settings_ui() -> void:
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	vbox.add_child(label)
 
-	for size_val in [3, 4, 5]:
+	for size_val in [2, 3, 4, 5]:
 		var btn = Button.new()
 		btn.text = "%d x %d" % [size_val, size_val]
 		btn.disabled = (size_val == board_size)
@@ -360,7 +367,7 @@ func _update_size_buttons() -> void:
 	if _settings_panel == null:
 		return
 	var vbox = _settings_panel.get_child(0)
-	var sizes = [3, 4, 5]
+	var sizes = [2, 3, 4, 5]
 	for i in range(sizes.size()):
 		var btn = vbox.get_child(i + 1)
 		if btn is Button:
@@ -401,8 +408,16 @@ func _create_victory_overlay() -> void:
 	play_again_btn.pressed.connect(_on_play_again_pressed)
 	vbox.add_child(play_again_btn)
 
+	_next_puzzle_btn = Button.new()
+	_next_puzzle_btn.text = "Siguiente"
+	_next_puzzle_btn.custom_minimum_size = Vector2(260, 64)
+	_next_puzzle_btn.add_theme_font_size_override("font_size", 28)
+	_next_puzzle_btn.pressed.connect(_on_next_puzzle_pressed)
+	vbox.add_child(_next_puzzle_btn)
+
 func _show_victory_overlay() -> void:
 	if _victory_overlay:
+		_update_next_button()
 		_victory_overlay.visible = true
 
 func _hide_victory_overlay() -> void:
@@ -413,3 +428,66 @@ func _on_play_again_pressed() -> void:
 	scramble_board()
 	game_state = GAME_STATES.STARTED
 	game_started.emit()
+
+func _create_animal_selector() -> void:
+	if puzzle_data_list.size() <= 1:
+		return
+	var ui_layer = $UI_Layer
+	var vp_size = get_viewport_rect().size
+	var btn_width = 160.0
+	var btn_height = 50.0
+	var spacing = 10.0
+	var board_right = vp_size.x / 2.0 + (tile_size * board_size) / 2.0
+	var x = board_right + 20.0
+	var total_height = puzzle_data_list.size() * (btn_height + spacing) - spacing
+	var y = (vp_size.y - total_height) / 2.0
+	for data in puzzle_data_list:
+		var btn = Button.new()
+		btn.text = data.level_title if data.level_title != "" else "Animal"
+		btn.position = Vector2(x, y)
+		btn.size = Vector2(btn_width, btn_height)
+		btn.add_theme_font_size_override("font_size", 22)
+		btn.pressed.connect(_switch_puzzle.bind(data))
+		ui_layer.add_child(btn)
+		y += btn_height + spacing
+
+func _switch_puzzle(data: PuzzleData) -> void:
+	if not data:
+		print("Error: No data provided to _switch_puzzle")
+		return
+		
+	print("Switching to puzzle: ", data.level_title)
+	_hide_victory_overlay()
+	
+	var index = puzzle_data_list.find(data)
+	if index != -1:
+		current_puzzle_index = index
+	else:
+		print("Warning: Puzzle data not found in list, index might be incorrect")
+		# Optional: Add it to the list or ignore
+	
+	print("Current puzzle index: ", current_puzzle_index)
+	background_texture = data.image
+	update_size(data.board_size)
+	scramble_board()
+	game_state = GAME_STATES.STARTED
+	game_started.emit()
+	_update_size_buttons()
+
+func _update_next_button() -> void:
+	if _next_puzzle_btn:
+		_next_puzzle_btn.visible = current_puzzle_index < puzzle_data_list.size() - 1
+
+func _on_next_puzzle_pressed() -> void:
+	var next_index = current_puzzle_index + 1
+	print("Next button pressed. Current index: %d, Next index: %d, Total puzzles: %d" % [current_puzzle_index, next_index, puzzle_data_list.size()])
+	
+	if next_index < puzzle_data_list.size():
+		print("Loading next puzzle from list...")
+		_switch_puzzle(puzzle_data_list[next_index])
+	else:
+		print("No more puzzles in the list!")
+		# Optional: If this is the last board, maybe change scene to map or show menu
+		_hide_victory_overlay()
+		# For example, go back to map:
+		# get_tree().change_scene_to_file("res://scenes/levels_map.tscn")

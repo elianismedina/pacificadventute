@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://cag611u4f3jnp"]
 
-[ext_resource type="Script" uid="uid://bh4l50rbnbr20" path="res://games/manglar level/manglarscript.gd" id="1_vhibn"]
-[ext_resource type="Texture2D" uid="uid://uaso45ixj7ln" path="res://assets/textures/cangrejoPuzzle.png" id="2_r3gf4"]
+[ext_resource type="Script" uid="uid://bh4l50rbnbr20" path="res://games/manglar level/Scripts/manglarscript.gd" id="1_vhibn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6jdkq"]
 draw_center = false
@@ -15,7 +14,6 @@ border_color = Color(0.91977715, 0.7573514, 0.7259828, 1)
 script = ExtResource("1_vhibn")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1111066508]
-texture = ExtResource("2_r3gf4")
 centered = true
 hframes = 4
 vframes = 4
