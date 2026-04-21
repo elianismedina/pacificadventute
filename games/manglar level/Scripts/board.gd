@@ -413,6 +413,13 @@ func _create_victory_overlay() -> void:
 	_next_puzzle_btn.pressed.connect(_on_next_puzzle_pressed)
 	vbox.add_child(_next_puzzle_btn)
 
+	var menu_btn = Button.new()
+	menu_btn.text = "Volver al menú"
+	menu_btn.custom_minimum_size = Vector2(260, 64)
+	menu_btn.add_theme_font_size_override("font_size", 28)
+	menu_btn.pressed.connect(_on_back_to_menu_pressed)
+	vbox.add_child(menu_btn)
+
 func _show_victory_overlay() -> void:
 	if _victory_overlay:
 		_update_next_button()
@@ -478,14 +485,11 @@ func _update_next_button() -> void:
 
 func _on_next_puzzle_pressed() -> void:
 	var next_index = current_puzzle_index + 1
-	print("Next button pressed. Current index: %d, Next index: %d, Total puzzles: %d" % [current_puzzle_index, next_index, puzzle_data_list.size()])
 	
 	if next_index < puzzle_data_list.size():
-		print("Loading next puzzle from list...")
 		_switch_puzzle(puzzle_data_list[next_index])
 	else:
-		print("No more puzzles in the list!")
-		# Optional: If this is the last board, maybe change scene to map or show menu
 		_hide_victory_overlay()
-		# For example, go back to map:
-		# get_tree().change_scene_to_file("res://scenes/levels_map.tscn")
+
+func _on_back_to_menu_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/levels_map.tscn")
