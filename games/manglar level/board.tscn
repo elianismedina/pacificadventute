@@ -5,10 +5,11 @@
 [ext_resource type="PackedScene" path="res://games/manglar level/puzzle_tile.tscn" id="2_tx6nw"]
 [ext_resource type="PackedScene" path="res://scenes/components/CloseButton.tscn" id="3_close"]
 [ext_resource type="Texture2D" uid="uid://7rdonxs2qoij" path="res://assets/textures/ManglarBackground.png" id="4_bg"]
-[ext_resource type="Resource" uid="uid://rmv30rkatpyh" path="res://games/manglar level/jaguar.tres" id="5_57ers"]
+[ext_resource type="Resource" uid="uid://rmv30rkatpyh" path="res://Resources/jaguar.tres" id="5_57ers"]
 [ext_resource type="AudioStream" uid="uid://3v83hopok0er" path="res://assets/sounds/tileMoveSound.mp3" id="5_sfx"]
-[ext_resource type="Resource" uid="uid://vibgpln7kuud" path="res://games/manglar level/manglar.tres" id="6_puzzle"]
-[ext_resource type="Resource" uid="uid://colcd1yfg2md1" path="res://games/manglar level/tortuga.tres" id="7_tortuga"]
+[ext_resource type="Resource" uid="uid://d3oml2u2dnqq2" path="res://Resources/ballena.tres" id="6_2tvgh"]
+[ext_resource type="Resource" uid="uid://vibgpln7kuud" path="res://Resources/manglar.tres" id="6_puzzle"]
+[ext_resource type="Resource" uid="uid://colcd1yfg2md1" path="res://Resources/tortuga.tres" id="7_tortuga"]
 
 [node name="Board" type="Control" unique_id=1726322405]
 layout_mode = 3
@@ -20,7 +21,7 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_bw3vb")
-puzzle_data_list = Array[ExtResource("2_frs2n")]([ExtResource("6_puzzle"), ExtResource("7_tortuga"), ExtResource("5_57ers")])
+puzzle_data_list = Array[ExtResource("2_frs2n")]([ExtResource("6_puzzle"), ExtResource("7_tortuga"), ExtResource("5_57ers"), ExtResource("6_2tvgh")])
 tile_scene = ExtResource("2_tx6nw")
 
 [node name="Background_Layer" type="CanvasLayer" parent="." unique_id=112233445]

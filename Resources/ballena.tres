@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="PuzzleData" format=3 uid="uid://d3oml2u2dnqq2"]
+
+[ext_resource type="Texture2D" uid="uid://c401xv35kn8wu" path="res://assets/textures/ballenaPuzzle.png" id="1_0mfa1"]
+[ext_resource type="Script" uid="uid://cu6kocb82yunk" path="res://games/manglar level/Scripts/puzzle_data.gd" id="2_50n45"]
+
+[resource]
+script = ExtResource("2_50n45")
+image = ExtResource("1_0mfa1")
+board_size = 2
+level_title = "Ballena"

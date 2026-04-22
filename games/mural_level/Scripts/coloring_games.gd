@@ -215,11 +215,13 @@ func _check_palette_click(mouse_pos: Vector2) -> bool:
 
 func _handle_color_mixing(c_name: String) -> void:
 	if c_name in ["blue", "red", "yellow"]:
-		active_colors.erase("white"); active_colors.erase("black")
 		active_colors[c_name] = true
-	elif c_name in ["black", "white"]:
-		active_colors.clear()
-		active_colors[c_name] = true
+	elif c_name == "white":
+		active_colors.erase("black")
+		active_colors["white"] = true
+	elif c_name == "black":
+		active_colors.erase("white")
+		active_colors["black"] = true
 
 func _update_brush_visuals() -> void:
 	var length: int = active_colors.size()

@@ -55,7 +55,10 @@ func _on_level_button_pressed(level_id: String) -> void:
 		print("Scene not found: ", scene_path)
 
 func _on_pier_pressed() -> void:
-	_on_level_button_pressed("pier")
+	print("Level selected: muelle")
+	level_selected.emit("muelle")
+	await button_pressed_sound.play_and_await()
+	GameLoader.load_scene("res://games/muelle_level/muelle.tscn")
 
 func _on_manglar_pressed() -> void:
 	print("Level selected: mangrove (using board scene)")

@@ -1,0 +1,135 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://games/muelle_level/Scripts/muelle.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/components/CloseButton.tscn" id="2_close"]
+[ext_resource type="AudioStream" path="res://assets/sounds/success_sound.wav" id="4_success"]
+[ext_resource type="AudioStream" path="res://assets/sounds/wrong_sound.wav" id="5_wrong"]
+[ext_resource type="Texture2D" path="res://assets/textures/muelle level/MuelleBackground.png" id="6_bg"]
+[ext_resource type="Texture2D" path="res://assets/textures/muelle level/muelleLevelTitle.png" id="7_title"]
+
+[node name="MuelleLevel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Background" type="TextureRect" parent="."]
+self_modulate = Color(1, 1, 1, 0.8)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_bg")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="SlotsContainer" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="PiecesContainer" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="UI_Layer" type="CanvasLayer" parent="."]
+
+[node name="LevelTitle" type="TextureRect" parent="UI_Layer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -300.0
+offset_top = 30.0
+offset_right = 300.0
+offset_bottom = 150.0
+grow_horizontal = 2
+texture = ExtResource("7_title")
+texture_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+
+[node name="CloseButton" parent="UI_Layer" instance=ExtResource("2_close")]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -120.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 120.0
+grow_horizontal = 0
+
+[node name="WinOverlay" type="Control" parent="UI_Layer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="UI_Layer/WinOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.498039)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI_Layer/WinOverlay"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -100.0
+offset_right = 150.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="UI_Layer/WinOverlay/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "¡Excelente Trabajo!"
+horizontal_alignment = 1
+
+[node name="VolverMenu" type="Button" parent="UI_Layer/WinOverlay/VBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+text = "Volver al Mapa"
+
+[node name="Retry" type="Button" parent="UI_Layer/WinOverlay/VBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+text = "Jugar de Nuevo"
+
+[node name="SuccessSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_success")
+bus = &"Sounds"
+
+[node name="WrongSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_wrong")
+bus = &"Sounds"
+
+[connection signal="pressed" from="UI_Layer/WinOverlay/VBoxContainer/VolverMenu" to="." method="_on_volver_menu_pressed"]
+[connection signal="pressed" from="UI_Layer/WinOverlay/VBoxContainer/Retry" to="." method="_on_retry_pressed"]
