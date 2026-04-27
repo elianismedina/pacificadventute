@@ -32,6 +32,7 @@ var _state: State = State.IDLE
 var _bars: Array = []
 var _note_players: Array = []
 var _status_label: Label = null
+var _wrong_sound_player: AudioStreamPlayer = null
 
 func _ready() -> void:
 	_note_players = [
@@ -42,6 +43,11 @@ func _ready() -> void:
 	for i in _note_players.size():
 		if _note_players[i].stream == null:
 			_note_players[i].stream = _generate_tone(NOTE_FREQUENCIES[i])
+	
+	_wrong_sound_player = AudioStreamPlayer.new()
+	_wrong_sound_player.stream = load("res://assets/sounds/wrong_sound.wav")
+	add_child(_wrong_sound_player)
+
 	_create_status_label()
 	_create_marimba()
 	_set_bars_disabled(true)
@@ -111,6 +117,9 @@ func _apply_bar_style(bar: Button, color: Color) -> void:
 func _start_round() -> void:
 	_current_round += 1
 	_pattern.append(randi() % BAR_COLORS.size())
+	_play_pattern()
+
+func _play_pattern() -> void:
 	_state = State.WATCHING
 	_status_label.text = "¡Mira y escucha!"
 	_set_bars_disabled(true)
@@ -178,8 +187,15 @@ func _game_over() -> void:
 	_state = State.IDLE
 	_set_bars_disabled(true)
 	_status_label.text = "¡Inténtalo de nuevo!"
-	await get_tree().create_timer(1.0).timeout
-	_show_overlay(false)
+	
+	# Delay so the player hears the marimba note they just pressed before the "wrong" sound
+	await get_tree().create_timer(0.5).timeout
+	
+	if _wrong_sound_player:
+		_wrong_sound_player.play()
+	
+	await get_tree().create_timer(1.5).timeout
+	_play_pattern()
 
 func _set_bars_disabled(disabled: bool) -> void:
 	for bar in _bars:
