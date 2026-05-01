@@ -1,0 +1,221 @@
+[gd_scene format=3 uid="uid://d1lax4maeys6x"]
+
+[ext_resource type="Script" uid="uid://d2hm8kg6o6bua" path="res://games/cuentos_abuelo_level/cuentos_abuelo_level.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://cc8lhpkv5breg" path="res://assets/textures/manglar_bg_placeholder.jpg" id="2_xk2sv"]
+[ext_resource type="Texture2D" path="res://assets/textures/pacho_sad_placeholder.png" id="3_nwcmp"]
+[ext_resource type="AudioStream" uid="uid://c17xnkgc12g47" path="res://assets/sounds/vo_abuelo_intro.mp3" id="4_4ivmk"]
+[ext_resource type="Texture2D" uid="uid://c0unwbqkhhoj1" path="res://assets/textures/bottle.png" id="4_aeopq"]
+[ext_resource type="AudioStream" uid="uid://du5gx4pg6bgpj" path="res://assets/sounds/musica_manglar.mp3" id="4_nwcmp"]
+[ext_resource type="AudioStream" uid="uid://hxcfmwv5uqkk" path="res://assets/sounds/ad_abuelo_intro.mp3" id="5_aeopq"]
+[ext_resource type="AudioStream" uid="uid://dafp3sykwe4r6" path="res://assets/sounds/quick_woosh.mp3" id="8_2j3sc"]
+[ext_resource type="PackedScene" path="res://scenes/components/CloseButton.tscn" id="9_b0ar8"]
+
+[node name="CuentosAbueloLevel" type="Control" unique_id=327871171]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Background" type="TextureRect" parent="." unique_id=1328330689]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_xk2sv")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Characters" type="Node2D" parent="." unique_id=1456938216]
+
+[node name="Pacho" type="TextureButton" parent="Characters" unique_id=771593217]
+offset_left = 600.0
+offset_top = 400.0
+offset_right = 1000.0
+offset_bottom = 800.0
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(200, 200)
+texture_normal = ExtResource("3_nwcmp")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="TrashContainer" type="Node2D" parent="." unique_id=1987654321]
+visible = false
+
+[node name="Bottle1" type="TextureButton" parent="TrashContainer" unique_id=1276412485]
+offset_left = 350.0
+offset_top = 700.0
+offset_right = 550.0
+offset_bottom = 900.0
+scale = Vector2(0.3, 0.3)
+pivot_offset = Vector2(100, 100)
+texture_normal = ExtResource("4_aeopq")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Bottle2" type="TextureButton" parent="TrashContainer" unique_id=1803757846]
+offset_left = 1150.0
+offset_top = 740.0
+offset_right = 1350.0
+offset_bottom = 940.0
+scale = Vector2(0.3, 0.3)
+pivot_offset = Vector2(100, 100)
+texture_normal = ExtResource("4_aeopq")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Bottle3" type="TextureButton" parent="TrashContainer" unique_id=126520599]
+offset_left = 750.0
+offset_top = 770.0
+offset_right = 950.0
+offset_bottom = 970.0
+scale = Vector2(0.3, 0.3)
+pivot_offset = Vector2(100, 100)
+texture_normal = ExtResource("4_aeopq")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Bottle4" type="TextureButton" parent="TrashContainer" unique_id=2000000004]
+offset_left = 200.0
+offset_top = 720.0
+offset_right = 400.0
+offset_bottom = 920.0
+rotation = 0.523599
+scale = Vector2(0.25, 0.25)
+pivot_offset = Vector2(100, 100)
+texture_normal = ExtResource("4_aeopq")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Bottle5" type="TextureButton" parent="TrashContainer" unique_id=2000000005]
+offset_left = 1300.0
+offset_top = 670.0
+offset_right = 1500.0
+offset_bottom = 870.0
+rotation = -0.785398
+scale = Vector2(0.35, 0.35)
+pivot_offset = Vector2(100, 100)
+texture_normal = ExtResource("4_aeopq")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Bottle6" type="TextureButton" parent="TrashContainer" unique_id=2000000006]
+offset_left = 550.0
+offset_top = 790.0
+offset_right = 750.0
+offset_bottom = 990.0
+rotation = 1.0472
+scale = Vector2(0.28, 0.28)
+pivot_offset = Vector2(100, 100)
+texture_normal = ExtResource("4_aeopq")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Bottle7" type="TextureButton" parent="TrashContainer" unique_id=2000000007]
+offset_left = 950.0
+offset_top = 710.0
+offset_right = 1150.0
+offset_bottom = 910.0
+rotation = 2.0944
+scale = Vector2(0.32, 0.32)
+pivot_offset = Vector2(100, 100)
+texture_normal = ExtResource("4_aeopq")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Bottle8" type="TextureButton" parent="TrashContainer" unique_id=2000000008]
+offset_left = 120.0
+offset_top = 650.0
+offset_right = 320.0
+offset_bottom = 850.0
+rotation = -0.261799
+scale = Vector2(0.22, 0.22)
+pivot_offset = Vector2(100, 100)
+texture_normal = ExtResource("4_aeopq")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Bottle9" type="TextureButton" parent="TrashContainer" unique_id=2000000009]
+offset_left = 1250.0
+offset_top = 800.0
+offset_right = 1450.0
+offset_bottom = 1000.0
+rotation = 0.872665
+scale = Vector2(0.3, 0.3)
+pivot_offset = Vector2(100, 100)
+texture_normal = ExtResource("4_aeopq")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Bottle10" type="TextureButton" parent="TrashContainer" unique_id=2000000010]
+offset_left = 480.0
+offset_top = 760.0
+offset_right = 680.0
+offset_bottom = 960.0
+rotation = -1.5708
+scale = Vector2(0.27, 0.27)
+pivot_offset = Vector2(100, 100)
+texture_normal = ExtResource("4_aeopq")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="AudioPlayers" type="Node" parent="." unique_id=1333603585]
+
+[node name="AbueloVO" type="AudioStreamPlayer" parent="AudioPlayers" unique_id=509463249]
+stream = ExtResource("4_4ivmk")
+
+[node name="ADPlayer" type="AudioStreamPlayer" parent="AudioPlayers" unique_id=513631901]
+stream = ExtResource("5_aeopq")
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="AudioPlayers" unique_id=133474774]
+stream = ExtResource("4_nwcmp")
+parameters/looping = true
+
+[node name="SFXPlayer" type="AudioStreamPlayer" parent="AudioPlayers" unique_id=2142232230]
+stream = ExtResource("8_2j3sc")
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1621396525]
+
+[node name="Subtitles" type="Label" parent="UI" unique_id=1834500636]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -150.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 32
+text = "Subtítulos aquí..."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Controls" type="HBoxContainer" parent="UI" unique_id=1657574270]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -300.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 80.0
+grow_horizontal = 0
+theme_override_constants/separation = 20
+alignment = 2
+
+[node name="ADButton" type="Button" parent="UI/Controls" unique_id=828481286]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+text = "AD: ON"
+
+[node name="NextButton" type="Button" parent="UI/Controls" unique_id=1651926750]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+text = "Siguiente"
+
+[node name="CloseButton" parent="UI/Controls" unique_id=1756968091 instance=ExtResource("9_b0ar8")]
+layout_mode = 2

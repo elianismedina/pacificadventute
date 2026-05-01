@@ -78,7 +78,9 @@ func _on_bosque_pressed() -> void:
 	get_tree().change_scene_to_file("res://games/bosque_level/bosquelevel.tscn")
 
 func _on_celebration_pressed() -> void:
-	_on_level_button_pressed("celebration")
+	level_selected.emit("celebration")
+	await button_pressed_sound.play_and_await()
+	get_tree().change_scene_to_file("res://games/cuentos_abuelo_level/cuentos_abuelo_level.tscn")
 
 func _on_back_button_pressed() -> void:
 	await button_pressed_sound.play_and_await()
